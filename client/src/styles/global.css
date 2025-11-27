@@ -1,0 +1,33 @@
+/* Smooth transitions globally */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Card hover effect */
+.hover-card {
+  transform: translateY(0);
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 12px;
+}
+
+.hover-card:hover {
+  transform: translateY(-6px);
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 12px 28px;
+}
+
+/* Button hover effect */
+.btn-animated:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+/* Smooth fade-in animation for pages */
+.fade-in {
+  animation: fade 0.5s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fade {
+  to {
+    opacity: 1;
+  }
+}
