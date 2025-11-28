@@ -13,11 +13,22 @@ export default function Home() {
       </p>
 
       <div className="mt-4">
-        <Button as={Link} to="/register" size="lg" className="btn-animated me-3">
+        <Button
+          as={Link}
+          to="/register"
+          size="lg"
+          className="btn-animated me-3"
+        >
           Start Learning 🚀
         </Button>
 
-        <Button as={Link} to="/login" size="lg" variant="outline-primary" className="btn-animated">
+        <Button
+          as={Link}
+          to="/login"
+          size="lg"
+          variant="outline-primary"
+          className="btn-animated"
+        >
           Login
         </Button>
       </div>

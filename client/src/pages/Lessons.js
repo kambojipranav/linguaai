@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Row, Col, Card, Button, Form, Badge } from "react-bootstrap";
 import api from "../api/api";
+import { useNavigate } from "react-router-dom";
 
 export default function Lessons() {
   const [lessons, setLessons] = useState([]);
@@ -10,6 +11,8 @@ export default function Lessons() {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+
+  const navigate = useNavigate();
 
   const fetchLessons = async () => {
     try {
@@ -39,6 +42,7 @@ export default function Lessons() {
         level,
         description,
       });
+
       setLessons((prev) => [res.data, ...prev]);
       setTitle("");
       setLanguage("");
@@ -51,7 +55,8 @@ export default function Lessons() {
     }
   };
 
-  const handleDeleteLesson = async (id) => {
+  const handleDeleteLesson = async (id, e) => {
+    e.stopPropagation(); // prevents clicking from navigating
     if (!window.confirm("Delete this lesson?")) return;
 
     try {
@@ -95,10 +100,7 @@ export default function Lessons() {
 
             <Col md={2} className="mb-3">
               <Form.Label>Level</Form.Label>
-              <Form.Select
-                value={level}
-                onChange={(e) => setLevel(e.target.value)}
-              >
+              <Form.Select value={level} onChange={(e) => setLevel(e.target.value)}>
                 <option>Beginner</option>
                 <option>Intermediate</option>
                 <option>Advanced</option>
@@ -115,11 +117,7 @@ export default function Lessons() {
             </Col>
           </Row>
 
-          <Button
-            type="submit"
-            className="btn-animated"
-            disabled={saving}
-          >
+          <Button type="submit" className="btn-animated" disabled={saving}>
             {saving ? "Saving..." : "Add Lesson"}
           </Button>
         </Form>
@@ -134,23 +132,34 @@ export default function Lessons() {
         <Row>
           {lessons.map((lesson) => (
             <Col key={lesson._id} md={4} className="mb-3">
-              <Card className="hover-card h-100">
+              <Card
+                className="hover-card h-100 lesson-card"
+                onClick={() => navigate(`/lessons/${lesson._id}`)}
+                style={{ 
+                  cursor: "pointer", 
+                  transition: "0.3s ease", 
+                  boxShadow: "0px 2px 10px rgba(0,0,0,0.08)"
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.03)")}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+              >
                 <Card.Body>
                   <Card.Title className="d-flex justify-content-between align-items-center">
                     <span>{lesson.title}</span>
                     <Badge bg="secondary">{lesson.level}</Badge>
                   </Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    {lesson.language}
-                  </Card.Subtitle>
-                  <Card.Text>
+
+                  <Card.Subtitle className="text-muted">{lesson.language}</Card.Subtitle>
+
+                  <Card.Text className="mt-2">
                     {lesson.description || "No description"}
                   </Card.Text>
+
                   <Button
                     variant="outline-danger"
                     size="sm"
                     className="btn-animated"
-                    onClick={() => handleDeleteLesson(lesson._id)}
+                    onClick={(e) => handleDeleteLesson(lesson._id, e)}
                   >
                     Delete
                   </Button>

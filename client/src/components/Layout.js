@@ -11,7 +11,7 @@ export default function Layout({ children }) {
       <Navbar bg="dark" expand="lg" variant="dark" className="shadow-sm px-3">
         <Container>
           <Navbar.Brand as={Link} to="/" className="fw-bold">
-            🌐 LinguaAI
+             LinguaAI
           </Navbar.Brand>
 
           <Navbar.Toggle aria-controls="main-navbar" />
@@ -43,7 +43,7 @@ export default function Layout({ children }) {
               {isLoggedIn && (
                 <>
                   <span className="text-light me-3">
-                    👋 Hello, <strong>{user?.username || "Learner"}</strong>
+                     Hello, <strong>{user?.username || "Learner"}</strong>
                   </span>
                   <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
                   <Nav.Link as={Link} to="/lessons">Lessons</Nav.Link>

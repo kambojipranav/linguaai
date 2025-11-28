@@ -1,14 +1,18 @@
 import express from "express";
 import { getLessons, createLesson, deleteLesson } from "../controllers/lessonController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
+import { enterLessonWorkspace, askAi, getLessonHistory } from "../controllers/lessonAiController.js";
 
 const router = express.Router();
 
-// All routes below require auth
-router.use(authMiddleware);
+// Lessons CRUD
+router.get("/", authMiddleware, getLessons);
+router.post("/", authMiddleware, createLesson);
+router.delete("/:id", authMiddleware, deleteLesson);
 
-router.get("/", getLessons);        // GET /api/lessons
-router.post("/", createLesson);     // POST /api/lessons
-router.delete("/:id", deleteLesson); // DELETE /api/lessons/:id
+// Workspace + AI routes
+router.get("/:id/workspace", authMiddleware, enterLessonWorkspace);
+router.post("/:id/chat", authMiddleware, askAi);
+router.get("/:id/history", authMiddleware, getLessonHistory);
 
 export default router;

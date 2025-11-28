@@ -22,7 +22,7 @@ export default function Register() {
       setMsg("Account created 🎉 You can now login.");
     } catch (err) {
       setVariant("danger");
-      setMsg(err.response?.data?.message || "Registration failed ❌");
+      setMsg(err.response?.data?.message || "Registration failed ");
     }
   };
 

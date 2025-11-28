@@ -38,7 +38,7 @@ export default function Login() {
       navigate("/dashboard", { replace: true });
     } catch (err) {
       setVariant("danger");
-      setMsg(err.response?.data?.message || "Login failed ❌");
+      setMsg(err.response?.data?.message || "Login failed ");
     }
   };
 
